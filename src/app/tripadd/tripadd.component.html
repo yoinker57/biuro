@@ -1,0 +1,40 @@
+<div class="form-container">
+  <h3>Dodaj wycieczkę</h3>
+  <form [formGroup]="tripadd">
+    <div>
+      <label for="title">Tytuł:</label>
+      <input type="text" id="title" formControlName="title" />
+    </div>
+    <div>
+      <label for="country">Kraj:</label>
+      <input type="text" id="country" formControlName="country" />
+    </div>
+    <div>
+      <label for="date">Od:</label>
+      <input type="date" id="date1" formControlName="date1" />
+    </div>
+    <div>
+      <label for="title">Do:</label>
+      <input type="date" id="date2" formControlName="date2" />
+    </div>
+    <div>
+      <label for="price">Cena:</label>
+      <input type="number" id="price" formControlName="price" />
+    </div>
+    <div>
+      <label for="places">Miejsca:</label>
+      <input type="number" id="places" formControlName="places" />
+    </div>
+    <div>
+      <label for="desc">Opis:</label>
+      <input type="text" id="desc" formControlName="desc" />
+    </div>
+    <div>
+      <label for="link">Zdjęcie:</label>
+      <input type="url" id="link" formControlName="link" />
+    </div>
+    <button type="submit" (click)="addTrip()" id="submit">Dodaj</button>
+    <div *ngIf="error">Wprowadź poprawne dane</div>
+    <div *ngIf="ok">Zatwierdzono</div>
+  </form>
+</div>

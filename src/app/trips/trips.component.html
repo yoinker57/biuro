@@ -1,0 +1,98 @@
+<div class="all">
+  <div class="left">
+    <app-filtr
+      [trips]="trips"
+      [countries]="getCountry(trips)"
+      (filtered)="filtrUpdate($event)"
+    ></app-filtr>
+  </div>
+
+  <div class="container">
+    <div class="up" [ngClass]="{
+      gr: cart >= 10,
+      rd: cart < 10
+    }">Aktualna ilość wybranych wycieczek: {{cart}}</div>
+    <div class="parent" (click)="unshow()" [style.display]="display">
+      <img [src]="source" class="photo" />
+    </div>
+    <div
+      class="ofer"
+      [ngClass]="{
+        expensive: trip == maxPrice(),
+        cheap: trip == minPrice(),
+        last: trip.places - trip.cart <= 3,
+        out: trip.places - trip.cart <= 0
+      }"
+      *ngFor="let trip of trips | searchPipe: data"
+    >
+      <img src="{{ trip.ImageLink }}" class="im" (click)="showphoto(trip)" />
+      <h1 class="title">{{ trip.tittle | uppercase }}</h1>
+      <h2 class="country">{{ trip.country | uppercase }}</h2>
+      <p class="date">
+        <b> {{ trip.startdate }} </b> do <b>{{ trip.enddate }}</b>
+      </p>
+      <p class="price">tylko {{ trip.price }} zł</p>
+      <p class="places">tylko {{ trip.places - trip.cart }} miejsc</p>
+      <p class="desc">{{ trip.description }}</p>
+      <div class="buttoms">
+        <div class="plusminus">
+          <button class="but holder" *ngIf="trip.cart <= 0" disabled>-</button>
+          <button
+            class="but minus"
+            *ngIf="trip.cart > 0"
+            (click)="removeFromCart(trip)"
+          >
+            -
+          </button>
+          <p
+            class="tripcart"
+          >
+            {{ trip.cart }}
+          </p>
+          <button
+            class="but plus"
+            *ngIf="trip.places > trip.cart"
+            (click)="addToCart(trip)"
+          >
+            +
+          </button>
+          <button class="but holder" *ngIf="trip.places < trip.cart">+</button>
+        </div>
+        
+      </div>
+      <div class="dno">
+        <div class="ocena">
+          <datalist id="custom-list">
+            <option value="1"></option>
+            <option value="2"></option>
+            <option value="3"></option>
+            <option value="4"></option>
+            <option value="5"></option>
+          </datalist>
+          <input
+            type="range"
+            min="1"
+            max="5"
+            step="1"
+            oninput="this.style.setProperty('--value', this.value)"
+            list="custom-list"
+            value="1"
+            id="rating"
+            (change)="getSliderValue($event, trip)"
+          />
+          <div class="send" (click)="addrate(trip)">Oceń ({{ trip.rat }})</div>
+          <div class="srednia">
+            <p>średnia ocena:</p>
+            <h2>{{ trip.rating | number: "1.0-1" }}</h2>
+          </div>
+        </div>
+        <div class="liczbaocen">
+          <p>liczba ocen:</p>
+          <h3>{{ trip.nor }}</h3>
+        </div>
+
+        <div class="delete" (click)="delTrip(trip)">🗑️</div>
+      </div>
+    </div>
+  </div>
+</div>

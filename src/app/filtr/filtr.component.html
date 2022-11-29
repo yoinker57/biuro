@@ -1,0 +1,34 @@
+<div class="form-container filtruj" (click)="showing()" [ngStyle]="{'display': nshow}">Filtruj</div>
+<div class="form-container" onsubmit="return false" ng-load="getKeys()" [ngStyle]="{'display': show}">
+    <h3>Dodaj filtr</h3>
+    <h4>Wybierz kraj:</h4>
+    <div class="cou">
+        <div *ngFor="let country of countries">
+            <label for="country">{{ country }}</label>
+            <input type="checkbox" (change)="Change(country)" />
+        </div>
+    </div>
+    <div class="range">
+        <label for="price">Cena</label>
+        <ngx-slider [(value)]="value" [(highValue)]="highValue" [options]="sliderOptions()"></ngx-slider>
+    </div>
+    <div class="range">
+        <label for="opis">Ocena:</label>
+        <ngx-slider [(value)]="lowRating" [(highValue)]="highRating" [options]="options2"></ngx-slider>   
+    </div>
+    <div class="data">
+        <form [formGroup]="tripfiltr">
+            <div class="date">
+                <label for="startdate">Od</label>
+                <input type="date" id="startdate" min="{{today}}" step="1" formControlName="startdate">
+            </div>
+            <div class="date">
+                <label for="enddate">Do</label>
+                <input type="date" id="enddate" min="{{today}}" step="1" formControlName="enddate">
+            </div>
+        </form>
+    </div>
+    <div class="submit">
+        <button type="submit" id="submit" (click)="filtr()">Filtruj</button>
+    </div>
+</div>

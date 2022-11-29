@@ -1,0 +1,79 @@
+.form-container{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 3px solid #1b435d;
+    margin-top: 10px;
+    position: sticky;
+    top: 10px;
+    margin-bottom: 10px;
+}
+
+.filtruj{
+    text-align: center;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.range{
+    margin-top: 10px;
+}
+.range > label{
+    font-size: 20px;
+}
+
+.cou{
+    display: flex;
+    flex-direction: column;
+}
+
+.cou > div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0px;
+}
+.cou > div> label{
+    display: flex;
+    justify-content: space-between;
+    margin: 0px;
+    padding: 2px;
+}
+
+label{
+    padding: 5px;
+    margin: 5px;
+}
+input{
+    width: auto;
+    margin: 5px;
+    padding: 3px;
+    font-size: 15px;
+}
+
+.date{
+    display: flex;
+    justify-content: space-between;
+}
+.date1{
+    display: flex;
+    justify-content: space-between;
+}
+
+.submit{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+#submit{
+    padding:15px;
+    font-size: 20px;
+    background-color: rgb(0, 120, 0);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+}
