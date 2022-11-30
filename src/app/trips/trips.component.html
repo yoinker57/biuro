@@ -1,31 +1,29 @@
 <div class="all">
   <div class="left">
     <app-filtr
-      [trips]="trips"
+      [trips] = "trips"
       [countries]="getCountry(trips)"
       (filtered)="filtrUpdate($event)"
     ></app-filtr>
   </div>
-
   <div class="container">
     <div class="up" [ngClass]="{
-      gr: cart >= 10,
-      rd: cart < 10
-    }">Aktualna ilość wybranych wycieczek: {{cart}}</div>
-    <div class="parent" (click)="unshow()" [style.display]="display">
-      <img [src]="source" class="photo" />
-    </div>
+      gr: cart2 >= 10,
+      rd: cart2 < 10
+    }">Aktualna ilość wybranych wycieczek: {{cart2}}</div>
     <div
       class="ofer"
       [ngClass]="{
-        expensive: trip == maxPrice(),
-        cheap: trip == minPrice(),
+        expensive: trip.price == maxPrice(),
+        cheap: trip.price == minPrice(),
         last: trip.places - trip.cart <= 3,
         out: trip.places - trip.cart <= 0
       }"
       *ngFor="let trip of trips | searchPipe: data"
     >
-      <img src="{{ trip.ImageLink }}" class="im" (click)="showphoto(trip)" />
+    <a routerLink="/trip">
+      <img src="{{ trip.ImageLink }}" class="im"/>
+    </a>
       <h1 class="title">{{ trip.tittle | uppercase }}</h1>
       <h2 class="country">{{ trip.country | uppercase }}</h2>
       <p class="date">
@@ -61,7 +59,7 @@
         
       </div>
       <div class="dno">
-        <div class="ocena">
+        <!-- <div class="ocena">
           <datalist id="custom-list">
             <option value="1"></option>
             <option value="2"></option>
@@ -89,8 +87,14 @@
         <div class="liczbaocen">
           <p>liczba ocen:</p>
           <h3>{{ trip.nor }}</h3>
+        </div> -->
+        <div class="srednia" *ngIf="trip.rating > 0">
+          <p>średnia ocena:</p>
+          <h2>{{ trip.rating | number: "1.0-1" }}</h2>
         </div>
-
+        <div class="srednia" *ngIf="trip.rating == 0">
+          <p>Brak ocen.</p>
+        </div>
         <div class="delete" (click)="delTrip(trip)">🗑️</div>
       </div>
     </div>

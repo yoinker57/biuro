@@ -1,6 +1,8 @@
 import { Component, OnInit, Pipe, PipeTransform, ViewChildren } from '@angular/core';
 import { CartService } from "../cart.service";
 import { TripsService } from '../services/trips.service';
+import { Subscription } from 'rxjs';
+import { Trip } from "../ITrip";
 
 @Component({
   selector: 'app-trips',
@@ -8,71 +10,76 @@ import { TripsService } from '../services/trips.service';
   styleUrls: ['./trips.component.css']
 })
 export class TripsComponent implements OnInit {
-  trips: any
-  display = "none"
-  source = ""
+  trips: any[] = []
+  cart: Trip[] = []
   data = []
-  cart: number = 0
-  data2: any[] = []
-  constructor(private dataService: CartService, private tripService: TripsService) { }
+  cart2: number = 0
 
+  constructor(private dataService: CartService,
+     private tripService: TripsService) { }
+
+  tripssub: Subscription | undefined
   ngOnInit(): void {
-    this.tripService.getTrips().subscribe(res => this.trips=res)
-  }
-  showphoto(x: any){
-    this.display = "block"
-    this.source = x.ImageLink
-    console.log(this.data2);
-  }
-  unshow(){
-    this.display = "none"
-    this.source = ""
+    this.tripssub = this.tripService.getTrips().subscribe(change => {
+      this.trips = []
+      for (let trip of change){
+        console.log(trip)
+        this.trips.push({
+          id: trip.id,
+          tittle: trip.tittle,
+          country: trip.country,
+          startdate: trip.startdate,
+          enddate: trip.enddate,
+          price: trip.price,
+          description: trip.description,
+          places: trip.places,
+          cart: trip.cart,
+          ImageLink: trip.ImageLink,
+          rating: trip.rating,
+          nor: trip.nor,
+          rat: trip.rat,
+        } as Trip)
+      }
+    })
+    this.cart = []
   }
   
   maxPrice(){
     let max = 0;
-    let maxtrip: any;
-    this.trips.forEach((trip: any) => {
-      if (trip.price > max && trip.places - trip.cart != 0) {
-        max = trip.price
-        maxtrip = trip
-      }
+    this.trips.forEach((trip: Trip) => {
+      max = Math.max(max, trip.price)
     });
-    return maxtrip;
+    return max;
   }
   minPrice(){
     let min = Math.pow(10, 1000);
-    let mintrip: any;
-    this.trips.forEach((trip: any) => {
-      if (trip.price < min && trip.places - trip.cart != 0) {
-        min = trip.price
-        mintrip = trip
-      }
+    this.trips.forEach((trip: Trip) => {
+      min = Math.min(min, trip.price)
     });
-    return mintrip;
+    return min;
   }
 
   addToCart(trip: any){
     trip.cart++;
-    this.cart++;
+    this.cart2++;
     this.dataService.setTrips(this.trips); 
   }
 
   removeFromCart(trip: any){
     trip.cart--;
-    this.cart--;
+    this.cart2--;
     this.dataService.setTrips(this.trips);
   }
 
-  delTrip(trip: any){
-    this.cart -= trip.cart
-    for (var _i = 0; _i < this.trips.length; _i++) {
-      if (this.trips[_i] == trip) {
-        this.trips.splice(_i, 1)
-      }
+  delTrip(trip: Trip){
+    console.log(trip)
+    this.cart2 -= trip.cart
+    let index = this.cart.indexOf(this.trips[trip.id])
+    while (index >= 0){
+      this.cart.splice(index, 1);
+      index = this.cart.indexOf(this.trips[trip.id])
     }
-    this.trips = [...this.trips]
-    this.dataService.setTrips(this.trips);
+    this.tripService.removeTrip(String(trip.id))
   }
 
   tripadder(trip: any){

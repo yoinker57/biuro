@@ -1,5 +1,6 @@
 
-     [
+{ "Trips":
+    [
      {
         "id": 0,
         "tittle": "Słoneczna Sycylia",
@@ -49,7 +50,7 @@
         "isChecked": true
       },
       {
-        "id": 4,
+        "id": 3,
         "tittle": "Katalońskie przysmaki",
         "country": "Hiszpania",
         "startdate": "2022-11-19",
@@ -65,7 +66,7 @@
         "isChecked": true
       },
       {
-        "id": 5,
+        "id": 4,
         "tittle": "Toskania szlakiem wina",
         "country": "Włochy",
         "startdate": "2022-11-30",
@@ -81,7 +82,7 @@
         "isChecked": true
       },
       {
-        "id": 6,
+        "id": 5,
         "tittle": "Szalone Kanary",
         "country": "Wyspy kanaryjskie",
         "startdate": "2023-01-31",
@@ -97,7 +98,7 @@
         "isChecked": true
       },
       {
-        "id": 7,
+        "id": 6,
         "tittle": "Co dwie głowy to nie jedna",
         "country": "Wyspy Wielkanocne",
         "startdate": "2022-11-19",
@@ -113,7 +114,7 @@
         "isChecked": true
       },
       {
-        "id": 8,
+        "id": 7,
         "tittle": "Złote Piaski",
         "country": "Bułgaria",
         "startdate": "2022-11-19",
@@ -129,7 +130,7 @@
         "isChecked": true
       },
       {
-        "id": 9,
+        "id": 8,
         "tittle": "Królestwo Szwecji",
         "country": "Szwecja",
         "startdate": "2022-11-19",
@@ -145,7 +146,7 @@
         "isChecked": true
       },
       {
-        "id": 10,
+        "id": 9,
         "tittle": "Stolica Polski jesienią",
         "country": "Polska",
         "startdate": "2022-11-19",
@@ -161,3 +162,4 @@
         "isChecked": true
       }
     ]
+  }

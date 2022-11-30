@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from  '@angular/common/http';
-
+import { environment } from '../environments/environment'; 
+import { AngularFireDatabaseModule} from '@angular/fire/compat/database';
+import { AngularFireModule } from '@angular/fire/compat';
 
 import { AppComponent } from './app.component';
 import { TripsComponent } from './trips/trips.component';
@@ -17,6 +19,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { CartComponent } from './cart/cart.component';
 import { AppRoutingModule } from "./app-routing.module";
 import { NavikComponent } from './navik/navik.component';
+import { TripComponent } from './trip/trip.component';
 
 
 @NgModule({
@@ -29,6 +32,7 @@ import { NavikComponent } from './navik/navik.component';
     SearchPipe,
     CartComponent,
     NavikComponent,
+    TripComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,9 @@ import { NavikComponent } from './navik/navik.component';
     NgxSliderModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]

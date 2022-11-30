@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators} from "@angular/forms";
+import { Trip } from '../ITrip';
+import { TripsService } from "../services/trips.service";
 
 @Component({
   selector: 'app-tripadd',
@@ -7,8 +9,9 @@ import { FormGroup, FormControl, Validators} from "@angular/forms";
   styleUrls: ['./tripadd.component.css']
 })
 export class TripaddComponent {
-  @Output() tripadder = new EventEmitter();
-  
+  constructor(private tripService: TripsService){ }
+
+
   tripadd = new FormGroup({
     title: new FormControl("", [
       Validators.required,
@@ -43,7 +46,7 @@ export class TripaddComponent {
     const month = data.getMonth() + 1
     return data.getFullYear() + '-' + month + '-' + data.getDate()
   }
-  compareDate(data: any, data1: any){ // return true if data1 < data
+  compareDate(data: any, data1: any){ 
     data = this.dateToString(data)
     if (data1 < data) {
       return true
@@ -63,6 +66,7 @@ export class TripaddComponent {
       return
     }
     let trip = {
+      id: this.tripService.getNextID(),
       tittle: this.tripadd.get('title')!.value,
       country: this.tripadd.get('country')!.value,
       startdate: this.tripadd.get('date1')!.value,
@@ -75,7 +79,7 @@ export class TripaddComponent {
       "rating": 0,
       "nor": 0,
       "rat": 1,
-    }
+    } as unknown as Trip;
     console.log(trip)
     const data = new Date()
     this.compareDate(data, trip.startdate)
@@ -86,24 +90,11 @@ export class TripaddComponent {
         return
       }
     }
-    this.tripadder.emit(trip)
+    console.log(trip)
+    this.tripService.addTrip(trip)
     this.error = false
     this.ok = true
     this.tripadd.reset()
   }
 }
 
-export interface Trip{
-  tittle: string
-  country: string
-  startdate: string
-  enddate: string
-  price: number
-  places: number
-  description: string
-  ImageLink: string
-  cart: number
-  rating: number
-  nor: number
-  rat: number
-}
