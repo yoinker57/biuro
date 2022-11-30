@@ -29,7 +29,7 @@ a{
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    margin: 0;
+    margin: 10px;
     width: 80%;
     position: relative;
     gap: 10px;
@@ -148,12 +148,14 @@ a{
     border-radius: 50px;
     margin-left: 20%;
 }
+.im2{
+    display: flex;
+    justify-content: center;
+}
 
 .im{
-    width: 100%;
+    width: auto;
     border-radius: 10px;
-    align-self: center;
-    justify-self: center;
     max-height: 200px;
     margin-bottom: auto;
 }

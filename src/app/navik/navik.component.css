@@ -26,3 +26,9 @@ a{
     cursor:pointer;
     transition:300ms ease all;
 }
+
+@media screen and (max-width: 600px) {
+    .nav{
+        flex-direction: column;
+    }
+}

@@ -21,9 +21,11 @@
       }"
       *ngFor="let trip of trips | searchPipe: data"
     >
-    <a routerLink="/trip">
-      <img src="{{ trip.ImageLink }}" class="im"/>
-    </a>
+    <div class="im2">
+      <a routerLink="/trip">
+        <img src="{{ trip.ImageLink }}" class="im"/>
+      </a>
+    </div>
       <h1 class="title">{{ trip.tittle | uppercase }}</h1>
       <h2 class="country">{{ trip.country | uppercase }}</h2>
       <p class="date">
