@@ -21,43 +21,42 @@
       }"
       *ngFor="let trip of trips | searchPipe: data"
     >
-    <div class="im2">
-      <a routerLink="/trip">
-        <img src="{{ trip.ImageLink }}" class="im"/>
-      </a>
-    </div>
-      <h1 class="title">{{ trip.tittle | uppercase }}</h1>
-      <h2 class="country">{{ trip.country | uppercase }}</h2>
-      <p class="date">
-        <b> {{ trip.startdate }} </b> do <b>{{ trip.enddate }}</b>
-      </p>
-      <p class="price">tylko {{ trip.price }} zł</p>
-      <p class="places">tylko {{ trip.places - trip.cart }} miejsc</p>
-      <p class="desc">{{ trip.description }}</p>
-      <div class="buttoms">
-        <div class="plusminus">
-          <button class="but holder" *ngIf="trip.cart <= 0" disabled>-</button>
-          <button
-            class="but minus"
-            *ngIf="trip.cart > 0"
-            (click)="removeFromCart(trip)"
-          >
-            -
-          </button>
-          <p
-            class="tripcart"
-          >
-            {{ trip.cart }}
-          </p>
-          <button
-            class="but plus"
-            *ngIf="trip.places > trip.cart"
-            (click)="addToCart(trip)"
-          >
-            +
-          </button>
-          <button class="but holder" *ngIf="trip.places < trip.cart">+</button>
-        </div>
+
+    <a routerLink="/trip/{{trip.id}}" class="link">
+      <img src="{{ trip.ImageLink }}" class="im"/>
+    </a>
+    <h1 class="title">{{ trip.tittle | uppercase }}</h1>
+    <h2 class="country">{{ trip.country | uppercase }}</h2>
+    <p class="date">
+      <b> {{ trip.startdate }} </b> do <b>{{ trip.enddate }}</b>
+    </p>
+    <p class="price">tylko {{ trip.price }} zł</p>
+    <p class="places">tylko {{ trip.places - trip.cart }} miejsc</p>
+    <p class="desc">{{ trip.description }}</p>
+    <div class="buttoms">
+      <div class="plusminus">
+        <button class="but holder" *ngIf="trip.cart <= 0" disabled>-</button>
+        <button
+          class="but minus"
+          *ngIf="trip.cart > 0"
+          (click)="removeFromCart(trip)"
+        >
+          -
+        </button>
+        <p
+          class="tripcart"
+        >
+          {{ trip.cart }}
+        </p>
+        <button
+          class="but plus"
+          *ngIf="trip.places > trip.cart"
+          (click)="addToCart(trip)"
+        >
+          +
+        </button>
+        <button class="but holder" *ngIf="trip.places < trip.cart">+</button>
+      </div>
         
       </div>
       <div class="dno">

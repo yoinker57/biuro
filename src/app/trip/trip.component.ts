@@ -15,7 +15,7 @@ export class TripComponent implements OnInit {
   { }
     
   private subscription: Subscription | undefined
-  trip: Trip | any
+  trip: Trip | any = null
   id: number = 0
 
   ngOnInit(): void {
@@ -29,8 +29,6 @@ export class TripComponent implements OnInit {
               break
             }
         }
-        console.log(tmp);
-        
         this.trip = ({
           id: tmp.id,
           tittle: tmp.tittle,
@@ -47,6 +45,5 @@ export class TripComponent implements OnInit {
           rat: tmp.rat} as Trip)
       })
     })
-    console.log(this.trip)
   }
 }

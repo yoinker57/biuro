@@ -67,6 +67,7 @@ a{
 }
 .country{
     font-size: 27px;
+    margin-top: auto;
 }
 .desc{
     font-size: 25px;
@@ -148,13 +149,15 @@ a{
     border-radius: 50px;
     margin-left: 20%;
 }
-.im2{
+
+.link{
     display: flex;
     justify-content: center;
 }
 
 .im{
-    width: auto;
+    /* width: auto; */
+    max-width: 95%;
     border-radius: 10px;
     max-height: 200px;
     margin-bottom: auto;

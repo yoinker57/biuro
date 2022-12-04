@@ -10,7 +10,7 @@ import { TripComponent } from "./trip/trip.component";
 const routes: Routes = [
   {path: 'trips', component: TripsComponent},
   // {path: 'trip/:id', component: TripComponent},
-  {path: 'trip', component: TripComponent},
+  {path: 'trip/:id', component: TripComponent},
   {path: 'addtrip', component: TripaddComponent},
 //   {path: 'cart', component: CartComponent},
 //   {path: '', component: HomeComponent},
