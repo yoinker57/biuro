@@ -13,13 +13,13 @@
     }">Aktualna ilość wybranych wycieczek: {{cart2}}</div>
     <div
       class="ofer"
+      *ngFor="let trip of trips | searchPipe: data"
       [ngClass]="{
         expensive: trip.price == maxPrice(),
         cheap: trip.price == minPrice(),
         last: trip.places - trip.cart <= 3,
         out: trip.places - trip.cart <= 0
       }"
-      *ngFor="let trip of trips | searchPipe: data"
     >
 
     <a routerLink="/trip/{{trip.id}}" class="link">
@@ -60,35 +60,6 @@
         
       </div>
       <div class="dno">
-        <!-- <div class="ocena">
-          <datalist id="custom-list">
-            <option value="1"></option>
-            <option value="2"></option>
-            <option value="3"></option>
-            <option value="4"></option>
-            <option value="5"></option>
-          </datalist>
-          <input
-            type="range"
-            min="1"
-            max="5"
-            step="1"
-            oninput="this.style.setProperty('--value', this.value)"
-            list="custom-list"
-            value="1"
-            id="rating"
-            (change)="getSliderValue($event, trip)"
-          />
-          <div class="send" (click)="addrate(trip)">Oceń ({{ trip.rat }})</div>
-          <div class="srednia">
-            <p>średnia ocena:</p>
-            <h2>{{ trip.rating | number: "1.0-1" }}</h2>
-          </div>
-        </div>
-        <div class="liczbaocen">
-          <p>liczba ocen:</p>
-          <h3>{{ trip.nor }}</h3>
-        </div> -->
         <div class="srednia" *ngIf="trip.rating > 0">
           <p>średnia ocena:</p>
           <h2>{{ trip.rating | number: "1.0-1" }}</h2>

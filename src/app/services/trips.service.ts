@@ -31,8 +31,6 @@ export class TripsService {
         }
       }
     } )
-    // const daneRef = this.db.list('Trips');
-    // daneRef.remove(String(id))
   }
   addTrip(trip: Trip){
     this.db.list('Trips').push({
@@ -51,6 +49,18 @@ export class TripsService {
       rat: trip.rat,
     })
   }
+  updateTrip(trip:Trip){
+    this.db.list('Trips').snapshotChanges().pipe(first()).subscribe((items:any) =>{
+      for(let i of items){
+        if(i.payload.val().id==trip.id)
+        {
+          console.log(i.payload.key)
+          this.db.list('Trips').update(i.payload.key, {rating: trip.rating, nor:trip.nor})
+        }
+      }
+    } )
+  }
+
   getNextID(){
     return this.nextId
   }

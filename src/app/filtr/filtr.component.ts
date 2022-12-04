@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, Output, Type} from '@angular/core';
 import { Options } from "@angular-slider/ngx-slider";
+import { TripsService } from "../services/trips.service";
 import { FormGroup, FormControl} from "@angular/forms";
 import { Trip } from "../ITrip";
+
 
 @Component({
   selector: 'app-filtr',
@@ -9,7 +11,8 @@ import { Trip } from "../ITrip";
   styleUrls: ['./filtr.component.css']
 })
 export class FiltrComponent{
-  @Input() trips: any = []
+  constructor(private tripsservice: TripsService){ }
+  @Input() trips: Trip[] = []
   @Input() countries = ['a']
   @Output() filtered = new EventEmitter();
   @Output() reset = new EventEmitter();

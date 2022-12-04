@@ -46,4 +46,20 @@ export class TripComponent implements OnInit {
       })
     })
   }
+
+  getSliderValue(event: any, trip: any) {
+    trip.rat = Number(event.target.value)
+  }
+
+  addrate(trip: any){
+    trip.rating = (trip.nor * trip.rating + trip.rat)/(trip.nor + 1)
+    trip.nor++
+    this.tripsservice.updateTrip(trip)
+  }
 }
+
+
+// zrobić w jsonie następną tabelke zakupione wycieczki
+// następnie jak damy w koszyku zakup to aktualizujemy
+// Trips w firebasie i zakupione wycieczki
+// 

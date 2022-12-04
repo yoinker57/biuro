@@ -1,5 +1,47 @@
-<p>trip works </p>
 <div *ngIf="trip">
-    <h1>{{trip.tittle}} </h1>
-    <img src="{{trip.ImageLink}}" alt="" srcset="">
+    <div class="all">
+        <img src="{{trip.ImageLink}}" alt="" srcset="">
+        <div class="right">
+            <h1>{{trip.tittle}}</h1>
+            <h2>{{trip.country}} </h2>
+            <h3>{{trip.description}} </h3>
+            <h2>Tylko: {{trip.price}} złotych</h2>
+            
+            <div class="ocena">
+                  <datalist id="custom-list">
+                    <option value="1"></option>
+                    <option value="2"></option>
+                    <option value="3"></option>
+                    <option value="4"></option>
+                    <option value="5"></option>
+                  </datalist>
+                  <input
+                    type="range"
+                    min="1"
+                    max="5"
+                    step="1"
+                    oninput="this.style.setProperty('--value', this.value)"
+                    list="custom-list"
+                    value="1"
+                    id="rating"
+                    (change)="getSliderValue($event, trip)"
+                  />
+                  <div class="send" (click)="addrate(trip)">Oceń ({{ trip.rat }})</div>
+                  <div class="srednia">
+                    <p>średnia ocena:</p>
+                    <h2>{{ trip.rating | number: "1.0-1" }}</h2>
+                    <p>liczba ocen:</p>
+                    <h3>{{ trip.nor }}</h3>
+                  </div>
+            </div>
+        </div>
+    </div>
+
+<div class="exit">
+    <a routerLink="/trips" class="send">
+        sprawdź nasze inne wycieczki    
+    </a>
+</div>
+<div class="opinie">
+
 </div>
