@@ -80,21 +80,20 @@ export class TripaddComponent {
       "nor": 0,
       "rat": 1,
     } as unknown as Trip;
-    console.log(trip)
     const data = new Date()
-    this.compareDate(data, trip.startdate)
-
+    
     if (trip.startdate != null && trip.enddate != null) {
-      if (trip.startdate > trip.enddate || this.compareDate(data, trip.startdate) || this.compareDate(data, trip.enddate)) {
+      if (trip.startdate > trip.enddate || !this.compareDate(data, trip.startdate) || !this.compareDate(data, trip.enddate)) {
         this.error = true
         return
       }
     }
-    console.log(trip)
+    console.log('accept');
     this.tripService.addTrip(trip)
     this.error = false
     this.ok = true
     this.tripadd.reset()
   }
+
 }
 

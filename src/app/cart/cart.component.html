@@ -2,10 +2,7 @@
     <div *ngFor="let trip of trips">
         <div *ngIf="trip.cart > 0" class="trip">
             {{trip.tittle}} x {{trip.cart}}
+            <button (click)="buy(trip)">Kup</button>
         </div>
     </div>
-    <div class="price">
-        {{price}} zł
-    </div>
-    <button class="cena" (click)="priceUpdate()">Przelicz cenę</button>
 </div>

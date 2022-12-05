@@ -12,7 +12,6 @@ import { TripaddComponent } from './tripadd/tripadd.component';
 import { LogoComponent } from './logo/logo.component';
 import { FiltrComponent } from './filtr/filtr.component';
 import { FormsModule } from "@angular/forms";
-
 import { SearchPipe } from './trips/trips.pipe';
 
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
@@ -20,6 +19,7 @@ import { CartComponent } from './cart/cart.component';
 import { AppRoutingModule } from "./app-routing.module";
 import { NavikComponent } from './navik/navik.component';
 import { TripComponent } from './trip/trip.component';
+import { BuytripsComponent } from './buytrips/buytrips.component';
 
 
 @NgModule({
@@ -33,6 +33,7 @@ import { TripComponent } from './trip/trip.component';
     CartComponent,
     NavikComponent,
     TripComponent,
+    BuytripsComponent,
   ],
   imports: [
     BrowserModule,

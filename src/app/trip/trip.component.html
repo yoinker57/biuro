@@ -6,7 +6,32 @@
             <h2>{{trip.country}} </h2>
             <h3>{{trip.description}} </h3>
             <h2>Tylko: {{trip.price}} złotych</h2>
-            
+            <h3>Zostało {{ trip.places - trip.cart }} miejsc</h3>
+            <div class="buttoms">
+                <div class="plusminus">
+                  <button class="but holder" *ngIf="trip.cart <= 0" disabled>-</button>
+                  <button
+                    class="but minus"
+                    *ngIf="trip.cart > 0"
+                    (click)="delFromCart(trip)"
+                  >
+                    -
+                  </button>
+                  <p
+                    class="tripcart"
+                  >
+                    {{ trip.cart }}
+                  </p>
+                  <button
+                    class="but plus"
+                    *ngIf="trip.places > trip.cart"
+                    (click)="add2Cart(trip)"
+                  >
+                    +
+                  </button>
+                  <button class="but holder" *ngIf="trip.places < trip.cart">+</button>
+                </div>          
+            </div>
             <div class="ocena">
                   <datalist id="custom-list">
                     <option value="1"></option>
@@ -43,5 +68,40 @@
     </a>
 </div>
 <div class="opinie">
-
+    <div class="addopinion">
+        <h1>Dodaj opinię</h1>
+        <form [formGroup]="opinionadd">
+            <div>
+                <label>Nick:</label>
+                <input type="text" formControlName="Nick" />
+            </div>
+            <div>
+                <label>Nazwa wycieczki:</label>
+                <input type="text"  formControlName="Name" placeholder="{{trip.tittle}}"/>
+            </div>
+            <div>
+                <label>Twoja opinia:</label>
+                <textarea formControlName="opinion" cols="30" rows="10"></textarea>
+            </div>
+            <div>
+                <label>Data wycieczki:</label>
+                <input type="date" formControlName="date" />
+            </div>
+            <div *ngFor="let error of errors">
+                {{error}}
+            </div>
+            <button (click)="addOpinion()" id="submit">Dodaj</button>  
+        </form>
+    </div>
+    <div>
+        <div *ngFor="let opinion of opinions" class="opinions">
+            <div class="opinia" *ngIf="opinion.Name == trip.tittle">
+                <h2>Nick: {{opinion.Nick}}</h2>
+                <h2>Nazwa wycieczki: {{opinion.Name}}</h2>
+                <h3>Opinia:</h3>
+                <h4>{{opinion.opinion}}</h4>
+                <h4 *ngIf="opinion.date != '' && opinion.date != null ">Data zakupu: {{opinion.date}}</h4>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit, Pipe, PipeTransform, ViewChildren } from '@angular/core';
-import { CartService } from "../cart.service";
+import { CartService } from "../services/cart.service";
 import { TripsService } from '../services/trips.service';
 import { Subscription } from 'rxjs';
 import { Trip } from "../ITrip";
@@ -13,9 +13,8 @@ export class TripsComponent implements OnInit {
   trips: any[] = []
   cart: Trip[] = []
   data = []
-  cart2: number = 0
 
-  constructor(private dataService: CartService,
+  constructor(private cartService: CartService,
      private tripService: TripsService) { }
 
   tripssub: Subscription | undefined
@@ -23,7 +22,6 @@ export class TripsComponent implements OnInit {
     this.tripssub = this.tripService.getTrips().subscribe(change => {
       this.trips = []
       for (let trip of change){
-        console.log(trip)
         this.trips.push({
           id: trip.id,
           tittle: trip.tittle,
@@ -41,7 +39,7 @@ export class TripsComponent implements OnInit {
         } as Trip)
       }
     })
-    this.cart = []
+
   }
   
   maxPrice(){
@@ -61,19 +59,18 @@ export class TripsComponent implements OnInit {
 
   addToCart(trip: any){
     trip.cart++;
-    this.cart2++;
-    this.dataService.setTrips(this.trips); 
+    this.tripService.updateTrip(trip)
+    this.cartService.addTrip(trip)
   }
 
   removeFromCart(trip: any){
     trip.cart--;
-    this.cart2--;
-    this.dataService.setTrips(this.trips);
+    this.tripService.updateTrip(trip)
+    // this.dataService.setTrips(this.trips);
   }
 
   delTrip(trip: Trip){
     console.log(trip)
-    this.cart2 -= trip.cart
     let index = this.cart.indexOf(this.trips[trip.id])
     while (index >= 0){
       this.cart.splice(index, 1);
@@ -108,7 +105,6 @@ export class TripsComponent implements OnInit {
   
   filtrUpdate(data: any){
     this.data = data
-    console.log(data)
   }
 }
 

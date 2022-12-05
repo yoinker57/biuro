@@ -8,9 +8,9 @@
   </div>
   <div class="container">
     <div class="up" [ngClass]="{
-      gr: cart2 >= 10,
-      rd: cart2 < 10
-    }">Aktualna ilość wybranych wycieczek: {{cart2}}</div>
+      gr: 0 >= 10,
+      rd: 0 < 10
+    }">Aktualna ilość wybranych wycieczek: {{0}}</div>
     <div
       class="ofer"
       *ngFor="let trip of trips | searchPipe: data"
@@ -58,7 +58,7 @@
         <button class="but holder" *ngIf="trip.places < trip.cart">+</button>
       </div>
         
-      </div>
+    </div>
       <div class="dno">
         <div class="srednia" *ngIf="trip.rating > 0">
           <p>średnia ocena:</p>

@@ -1,0 +1,23 @@
+<div *ngFor="let trip of buyTrips">
+    <div class="single" *ngIf="filtry.includes(status(trip)) || filtry.length == 0"
+        [ngClass]="{
+            active: status(trip) == 0,
+            past: status(trip) == 1,
+            future: status(trip) == 2
+      }">
+        <a routerLink="/trip/{{trip.id}}" class="link">
+            <img src="{{ trip.ImageLink }}" class="im"/>
+        </a>
+        <p>{{trip.tittle}}</p>
+        <p>Miejsca: {{trip.cart}}</p>
+        <p>Od: {{trip.startdate}}</p>
+        <p>Do: {{trip.enddate}}</p>
+    </div>
+</div>
+<div class="formularz">
+    <input type="checkbox" name="" id="" (change)="filtr(0)"> Aktywne
+    <br>
+    <input type="checkbox" name="" id="" (change)="filtr(2)"> Przyszłe
+    <br>
+    <input type="checkbox" name="" id="" (change)="filtr(1)"> Odbyte
+</div>

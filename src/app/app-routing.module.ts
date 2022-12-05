@@ -3,16 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { TripsComponent } from "./trips/trips.component";
 import { TripaddComponent } from "./tripadd/tripadd.component";
-import { LogoComponent } from "./logo/logo.component";
 import { TripComponent } from "./trip/trip.component";
+import { CartComponent } from './cart/cart.component';
+import { BuytripsComponent } from './buytrips/buytrips.component';
 
 
 const routes: Routes = [
   {path: 'trips', component: TripsComponent},
-  // {path: 'trip/:id', component: TripComponent},
+  {path: 'cart', component: CartComponent},
   {path: 'trip/:id', component: TripComponent},
   {path: 'addtrip', component: TripaddComponent},
-//   {path: 'cart', component: CartComponent},
+  {path: 'yourtrips', component: BuytripsComponent},
 //   {path: '', component: HomeComponent},
 //   {path: '**', component: PagenotfoundComponent},
 
