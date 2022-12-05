@@ -13,6 +13,7 @@ export class TripsComponent implements OnInit {
   trips: any[] = []
   cart: Trip[] = []
   data = []
+  num: number = 0
 
   constructor(private cartService: CartService,
      private tripService: TripsService) { }
@@ -59,18 +60,18 @@ export class TripsComponent implements OnInit {
 
   addToCart(trip: any){
     trip.cart++;
+    this.num++
     this.tripService.updateTrip(trip)
-    this.cartService.addTrip(trip)
   }
 
   removeFromCart(trip: any){
     trip.cart--;
+    this.num--
     this.tripService.updateTrip(trip)
-    // this.dataService.setTrips(this.trips);
   }
 
   delTrip(trip: Trip){
-    console.log(trip)
+    this.num -= trip.cart
     let index = this.cart.indexOf(this.trips[trip.id])
     while (index >= 0){
       this.cart.splice(index, 1);

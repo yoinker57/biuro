@@ -1,0 +1,16 @@
+.trip{
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+}
+
+#submit{
+    padding:15px;
+    font-size: 20px;
+    background-color: rgb(0, 120, 0);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: auto;
+}

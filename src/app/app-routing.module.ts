@@ -6,6 +6,8 @@ import { TripaddComponent } from "./tripadd/tripadd.component";
 import { TripComponent } from "./trip/trip.component";
 import { CartComponent } from './cart/cart.component';
 import { BuytripsComponent } from './buytrips/buytrips.component';
+import { HomeComponent } from './home/home.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 const routes: Routes = [
@@ -14,8 +16,8 @@ const routes: Routes = [
   {path: 'trip/:id', component: TripComponent},
   {path: 'addtrip', component: TripaddComponent},
   {path: 'yourtrips', component: BuytripsComponent},
-//   {path: '', component: HomeComponent},
-//   {path: '**', component: PagenotfoundComponent},
+  {path: '', component: HomeComponent},
+  {path: '**', component: NotFoundComponent},
 
 ];
 

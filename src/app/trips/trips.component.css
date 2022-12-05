@@ -2,6 +2,7 @@
     display: flex;
 }
 
+
 a{
     text-decoration: none;
     color: black;
@@ -34,6 +35,8 @@ a{
     position: relative;
     gap: 10px;
     font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-left: auto;
+    margin-right: auto;
 }
 .ofer{
     border-radius: 20px;

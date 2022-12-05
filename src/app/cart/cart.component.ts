@@ -14,7 +14,6 @@ export class CartComponent implements OnInit{
   trips: Trip[] = []
 
   constructor(private tripService: TripsService) {  }
-  
   tripssub: Subscription | undefined
   ngOnInit(): void {
     this.tripssub = this.tripService.getTrips().subscribe(change => {

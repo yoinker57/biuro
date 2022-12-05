@@ -1,3 +1,6 @@
+<div class="info" *ngIf="buyTrips.length == 0">
+    <h1>Brak wycieczek</h1>
+</div>
 <div *ngFor="let trip of buyTrips">
     <div class="single" *ngIf="filtry.includes(status(trip)) || filtry.length == 0"
         [ngClass]="{

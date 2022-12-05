@@ -20,6 +20,8 @@ import { AppRoutingModule } from "./app-routing.module";
 import { NavikComponent } from './navik/navik.component';
 import { TripComponent } from './trip/trip.component';
 import { BuytripsComponent } from './buytrips/buytrips.component';
+import { HomeComponent } from './home/home.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
@@ -34,6 +36,8 @@ import { BuytripsComponent } from './buytrips/buytrips.component';
     NavikComponent,
     TripComponent,
     BuytripsComponent,
+    HomeComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

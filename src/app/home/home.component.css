@@ -1,0 +1,8 @@
+.mapouter{
+    border: 1px solid black;
+}
+a{
+    text-decoration: none;
+    margin-bottom: 20px;
+    color: black;
+}
