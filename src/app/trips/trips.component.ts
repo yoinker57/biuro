@@ -4,6 +4,9 @@ import { TripsService } from '../services/trips.service';
 import { Subscription } from 'rxjs';
 import { Trip } from "../ITrip";
 
+// zrobic funkcje iterującą przez wycieczki i sumująca cart
+
+
 @Component({
   selector: 'app-trips',
   templateUrl: './trips.component.html',
@@ -39,10 +42,19 @@ export class TripsComponent implements OnInit {
           rat: trip.rat,
         } as Trip)
       }
+      this.getNum()
     })
 
   }
   
+  getNum(){
+    let tmp = 0
+    this.trips.forEach(trip => {
+      tmp += trip.cart
+    });
+    this.num = tmp
+  }
+
   maxPrice(){
     let max = 0;
     this.trips.forEach((trip: Trip) => {
@@ -60,13 +72,13 @@ export class TripsComponent implements OnInit {
 
   addToCart(trip: any){
     trip.cart++;
-    this.num++
+    this.getNum()
     this.tripService.updateTrip(trip)
   }
 
   removeFromCart(trip: any){
     trip.cart--;
-    this.num--
+    this.getNum
     this.tripService.updateTrip(trip)
   }
 
@@ -78,6 +90,7 @@ export class TripsComponent implements OnInit {
       index = this.cart.indexOf(this.trips[trip.id])
     }
     this.tripService.removeTrip(String(trip.id))
+    this.getNum()
   }
 
   tripadder(trip: any){

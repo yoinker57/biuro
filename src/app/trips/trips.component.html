@@ -10,7 +10,7 @@
     <div class="up" [ngClass]="{
       gr: num >= 10,
       rd: num < 10
-    }">Aktualna ilość wybranych wycieczek: {{num}}</div>
+    }">Aktualna ilość zarezerwowanych miejsc: {{num}}</div>
     <div
       class="ofer"
       *ngFor="let trip of trips | searchPipe: data"
