@@ -24,14 +24,6 @@ export class BuytripsComponent implements OnInit {
     return data.getFullYear() + '-' + month + '-' + data.getDate()
   }
 
-  compareDate(data: any, data1: any){ //true if data1 < data
-    data = this.dateToString(data)
-    if (data1 < data) {
-      return true
-    }
-    return false
-  }
-
   data = new Date()
 
   status(trip: Trip){

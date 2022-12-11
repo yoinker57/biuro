@@ -44,14 +44,10 @@ export class TripaddComponent {
 
   dateToString(data: any){
     const month = data.getMonth() + 1
-    return data.getFullYear() + '-' + month + '-' + data.getDate()
-  }
-  compareDate(data: any, data1: any){ 
-    data = this.dateToString(data)
-    if (data1 < data) {
-      return true
+    if (data.getDate() < 10) {
+      return data.getFullYear() + '-' + month + '-0' + data.getDate()
     }
-    return false
+    return data.getFullYear() + '-' + month + '-' + data.getDate()
   }
 
   error = false
@@ -81,9 +77,10 @@ export class TripaddComponent {
       "rat": 1,
     } as unknown as Trip;
     const data = new Date()
+    let data1 = this.dateToString(data)
     
     if (trip.startdate != null && trip.enddate != null) {
-      if (trip.startdate > trip.enddate || !this.compareDate(data, trip.startdate) || !this.compareDate(data, trip.enddate)) {
+      if (trip.startdate > trip.enddate || trip.startdate < data1) {
         this.error = true
         return
       }
