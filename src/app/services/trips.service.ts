@@ -98,4 +98,9 @@ export class TripsService {
   }
 
 
+
+  // dla każdego użytkownika po zalogowaniu bierzemy jego wycieczki i zapisujemy do tablicy
+  // dodatkowo mamy w trips usera którego dane zmianiają się w zależności zalogowanie/wylogowanie braz zalogowania
+  // 
+
 }
