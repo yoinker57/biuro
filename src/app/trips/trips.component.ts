@@ -3,6 +3,7 @@ import { CartService } from "../services/cart.service";
 import { TripsService } from '../services/trips.service';
 import { Subscription } from 'rxjs';
 import { Trip } from "../ITrip";
+import { AuthService } from '../services/auth.service';
 
 // zrobic funkcje iterującą przez wycieczki i sumująca cart
 
@@ -19,7 +20,8 @@ export class TripsComponent implements OnInit {
   num: number = 0
 
   constructor(private cartService: CartService,
-     private tripService: TripsService) { }
+      private authService: AuthService,
+      private tripService: TripsService) { }
 
   tripssub: Subscription | undefined
   ngOnInit(): void {
@@ -70,37 +72,11 @@ export class TripsComponent implements OnInit {
     return min;
   }
 
-  addToCart(trip: any){
-    trip.cart++;
-    this.getNum()
-    this.tripService.updateTrip(trip)
-  }
-
-  removeFromCart(trip: any){
-    trip.cart--;
-    this.getNum
-    this.tripService.updateTrip(trip)
-  }
-
-  delTrip(trip: Trip){
-    this.num -= trip.cart
-    let index = this.cart.indexOf(this.trips[trip.id])
-    while (index >= 0){
-      this.cart.splice(index, 1);
-      index = this.cart.indexOf(this.trips[trip.id])
-    }
-    this.tripService.removeTrip(String(trip.id))
-    this.getNum()
-  }
-
   tripadder(trip: any){
     this.trips.push(trip)
     this.trips = [...this.trips]
   }
   
-  getSliderValue(event: any, trip: any) {
-    trip.rat = Number(event.target.value)
-  }
   
   addrate(trip: any){
     trip.rating = (trip.nor * trip.rating + trip.rat)/(trip.nor + 1)
@@ -120,5 +96,48 @@ export class TripsComponent implements OnInit {
   filtrUpdate(data: any){
     this.data = data
   }
+  canBuy(){
+    return this.authService.userData!=null
+  }
+
+  add2Cart(id: number){
+    if (this.authService.userCart[id] == undefined) {
+      this.authService.userCart[id] = 1;
+    }
+    else{
+      let tmp = this.authService.userCart[id];
+      this.authService.userCart[id] = tmp + 1;
+    }
+    this.tripService.updateUserCart(this.authService.userData.uid, this.authService.userCart)
+  }
+
+  delFromCart(id: number){
+    this.authService.userCart[id] -= 1
+    this.tripService.updateUserCart(this.authService.userData.uid, this.authService.userCart)
+  }
+
+  getTripPlaces(trip: Trip){
+    if (this.authService.userCart[trip.id] == undefined) {
+      return trip.places
+    }
+    return trip.places - this.authService.userCart[trip.id]
+  }
+
+  getCartValue(id: number){
+    if (this.authService.userCart[id] == undefined) {
+      return 0
+    }
+    return this.authService.userCart[id]
+  }
+
+  numberOfTrips(){
+    let sum = 0;
+    for (const [key, value] of this.authService.userCart.entries()) {
+      sum += value
+    }
+    return sum
+  }
+
+
 }
 

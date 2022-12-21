@@ -1,8 +1,8 @@
 <div class="all">
     <h1>Zawartość koszyka:</h1>
-    <div *ngFor="let trip of trips">
-        <div *ngIf="trip.cart > 0" class="trip">
-            <h3>{{trip.tittle}} x {{trip.cart}} cena: {{trip.cart*trip.price}} zł</h3>
+    <div *ngFor="let trip of array">
+        <div class="trip">
+            <h3>{{trip.tittle}} x {{getCartValue(trip.id)}} cena: {{getCartValue(trip.id)*trip.price}} zł</h3>
             <button (click)="buy(trip)" id="submit">Kup</button>
         </div>
     </div>

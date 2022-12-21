@@ -6,33 +6,33 @@
             <h2>{{trip.country}} </h2>
             <h3>{{trip.description}} </h3>
             <h2>Tylko: {{trip.price}} złotych</h2>
-            <h3>Zostało {{ trip.places - trip.cart }} miejsc</h3>
+            <h3>Zostało {{getTripPlaces(trip.id)}} miejsc</h3>
             <div class="buttoms">
                 <div class="plusminus">
-                  <button class="but holder" *ngIf="trip.cart <= 0" disabled>-</button>
+                  <button class="but holder" *ngIf="getCartValue(trip.id) <= 0" disabled>-</button>
                   <button
                     class="but minus"
-                    *ngIf="trip.cart > 0"
-                    (click)="delFromCart(trip)"
+                    *ngIf="getCartValue(trip.id) > 0"
+                    (click)="delFromCart(trip.id)"
                   >
                     -
                   </button>
                   <p
                     class="tripcart"
                   >
-                    {{ trip.cart }}
+                    {{ getCartValue(trip.id) }}
                   </p>
                   <button
                     class="but plus"
-                    *ngIf="trip.places > trip.cart"
-                    (click)="add2Cart(trip)"
+                    *ngIf="getTripPlaces(trip.id) > 0"
+                    (click)="add2Cart(trip.id)"
                   >
                     +
                   </button>
                   <button class="but holder" *ngIf="trip.places < trip.cart">+</button>
                 </div>          
             </div>
-            <div class="ocena">
+            <div class="ocena" >
                   <datalist id="custom-list">
                     <option value="1"></option>
                     <option value="2"></option>
@@ -40,7 +40,7 @@
                     <option value="4"></option>
                     <option value="5"></option>
                   </datalist>
-                  <input
+                  <input *ngIf="!banned() && inTripHistory(trip.id) && !isRated(trip.id)"
                     type="range"
                     min="1"
                     max="5"
@@ -51,7 +51,7 @@
                     id="rating"
                     (change)="getSliderValue($event, trip)"
                   />
-                  <div class="send" (click)="addrate(trip)">Oceń ({{ trip.rat }})</div>
+                  <div class="send" (click)="addrate(trip)" *ngIf="!banned() && inTripHistory(trip.id) && !isRated(trip.id)">Oceń ({{ trip.rat }}) </div>
                   <div class="srednia">
                     <p>średnia ocena:</p>
                     <h2>{{ trip.rating | number: "1.0-1" }}</h2>
@@ -68,7 +68,7 @@
     </a>
 </div>
 <div class="opinie">
-    <div class="addopinion">
+    <div class="addopinion" *ngIf="!banned()  && inTripHistory(trip.id)" >
         <h1>Dodaj opinię</h1>
         <form [formGroup]="opinionadd">
             <div>

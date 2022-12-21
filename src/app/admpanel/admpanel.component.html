@@ -1,0 +1,39 @@
+<div class="all">
+    <h3>Aktualny tryb persystencji logowania: {{ selectedPersistence }}</h3>
+    <div class="inline">
+        <h3>Wybierz tryb persystencji logowania:</h3>
+        <select [(ngModel)]="selectedPersistence" (ngModelChange)="changePersistance()">
+            <option>local</option>
+            <option>session</option>
+            <option>none</option>
+        </select>
+    </div>
+
+    <h2>Manage users</h2>
+    <ng-container *ngIf="users != []">
+        <div class="table-mobile">
+            <div *ngFor="let user of users" class="user-single-info">
+                <p><strong>Email: </strong>{{ user.email }}</p>
+                <p><strong>Uid: </strong>{{ user.uid }}</p>
+                <div class="btn-container">
+                    <button (click)="setRole(user.uid, 'banned', !user.roles.banned)" class="but"
+                        [ngClass]="{ 'role': user.roles.banned == true, 'notrole': !user.roles.banned}">
+                        banned
+                    </button>
+                    <button (click)="setRole(user.uid, 'menager', !user.roles.menager)" class="but"
+                        [ngClass]="{ 'role': user.roles.menager == true, 'notrole': !user.roles.menager }">
+                        menager
+                    </button>
+                    <button (click)="setRole(user.uid, 'admin', !user.roles.admin)" class="but"
+                        [ngClass]="{ 'role': user.roles.admin == true, 'notrole': !user.roles.admin }">
+                        admin
+                    </button>
+                    <button (click)="setRole(user.uid, 'client', !user.roles.client)" class="but"
+                        [ngClass]="{ 'role': user.roles.client == true, 'notrole': !user.roles.client }">
+                        client
+                    </button>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>

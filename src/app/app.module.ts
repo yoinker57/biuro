@@ -5,6 +5,7 @@ import { HttpClientModule } from  '@angular/common/http';
 import { environment } from '../environments/environment'; 
 import { AngularFireDatabaseModule} from '@angular/fire/compat/database';
 import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 import { AppComponent } from './app.component';
 import { TripsComponent } from './trips/trips.component';
@@ -22,6 +23,13 @@ import { TripComponent } from './trip/trip.component';
 import { BuytripsComponent } from './buytrips/buytrips.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { SignupComponent } from './signup/signup.component';
+import { LoginComponent } from './login/login.component';
+import { SignoutComponent } from './signout/signout.component';
+import { AdmpanelComponent } from './admpanel/admpanel.component';
+import { MenpanelComponent } from './menpanel/menpanel.component';
+import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+import { TripmodComponent } from './tripmod/tripmod.component';
 
 
 @NgModule({
@@ -38,6 +46,13 @@ import { NotFoundComponent } from './not-found/not-found.component';
     BuytripsComponent,
     HomeComponent,
     NotFoundComponent,
+    SignupComponent,
+    LoginComponent,
+    SignoutComponent,
+    AdmpanelComponent,
+    MenpanelComponent,
+    ResetpasswordComponent,
+    TripmodComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +62,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     AppRoutingModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

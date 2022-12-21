@@ -13,3 +13,8 @@ export interface Trip {
     "nor": number,
     "rat": number,
 }
+
+export interface CartTrip{
+    "id": number,
+    "quantity": number,
+}

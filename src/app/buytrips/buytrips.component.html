@@ -1,7 +1,4 @@
-<div class="info" *ngIf="buyTrips.length == 0">
-    <h1>Brak wycieczek</h1>
-</div>
-<div *ngFor="let trip of buyTrips">
+<div *ngFor="let trip of array">
     <div class="single" *ngIf="filtry.includes(status(trip)) || filtry.length == 0"
         [ngClass]="{
             active: status(trip) == 0,
@@ -12,7 +9,7 @@
             <img src="{{ trip.ImageLink }}" class="im"/>
         </a>
         <p>{{trip.tittle}}</p>
-        <p>Miejsca: {{trip.cart}}</p>
+        <p>Miejsca: {{getPlaces(trip.id)}}</p>
         <p>Od: {{trip.startdate}}</p>
         <p>Do: {{trip.enddate}}</p>
     </div>

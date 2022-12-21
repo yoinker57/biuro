@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TripsService } from "../services/trips.service";
 import { CartService } from "../services/cart.service";
+import { AuthService } from "../services/auth.service";
 import { ActivatedRoute } from "@angular/router";
 import { FormGroup, FormControl, Validators} from "@angular/forms";
 import { Trip } from "../ITrip";
@@ -14,6 +15,7 @@ import { first ,Subscription } from "rxjs";
 export class TripComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private cartService: CartService,
+    private authService: AuthService,
     private tripsservice: TripsService)
   { }
     
@@ -64,6 +66,8 @@ export class TripComponent implements OnInit {
   addrate(trip: any){
     trip.rating = (trip.nor * trip.rating + trip.rat)/(trip.nor + 1)
     trip.nor++
+    this.authService.userRating[trip.id] = true;
+    this.tripsservice.updateUserRating(this.authService.userData.uid, this.authService.userRating)
     this.tripsservice.updateTrip(trip)
   }
 
@@ -107,14 +111,55 @@ export class TripComponent implements OnInit {
     this.opinionadd.reset()
   }
 
-  add2Cart(trip: Trip){
-    this.tripsservice.updateTrip(trip)
-    this.trip.cart++
+  add2Cart(id: number){
+    if (this.authService.userCart[id] == undefined) {
+      this.authService.userCart[id] = 1;
+    }
+    else{
+      let tmp = this.authService.userCart[id];
+      this.authService.userCart[id] = tmp + 1;
+    }
+    this.tripsservice.updateUserCart(this.authService.userData.uid, this.authService.userCart)
   }
-  delFromCart(trip: Trip){
-    this.trip.cart--
-    this.tripsservice.updateTrip(trip)
+
+  delFromCart(id: number){
+    this.authService.userCart[id] -= 1
+    this.tripsservice.updateUserCart(this.authService.userData.uid, this.authService.userCart)
   }
+
+  getTripPlaces(id: number){
+    if (this.authService.userCart[id] == undefined) {
+      return this.trip.places
+    }
+    return this.trip.places - this.authService.userCart[id]
+  }
+
+  getCartValue(id: number){
+    if (this.authService.userCart[id] == undefined) {
+      return 0
+    }
+    return this.authService.userCart[id]
+  }
+
+  banned(){
+    return this.authService.userRoles.banned
+  }
+
+  inTripHistory(id: number){
+    if (this.authService.userTrips[id] != undefined && this.authService.userTrips[id] != 0) {
+      return true
+    }
+    return false
+  }
+
+  isRated(id: number){
+    if (this.authService.userRating[id] != undefined && this.authService.userRating[id] != false) {
+      return true
+    }
+    return false
+  }
+
+
 
 
   
@@ -122,7 +167,3 @@ export class TripComponent implements OnInit {
 }
 
 
-// zrobić w jsonie następną tabelke zakupione wycieczki
-// następnie jak damy w koszyku zakup to aktualizujemy
-// Trips w firebasie i zakupione wycieczki
-// 

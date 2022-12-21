@@ -1,0 +1,32 @@
+<app-tripadd></app-tripadd>
+<div class="all">
+    <div class="left">
+    <app-filtr
+        [trips] = "trips"
+        [countries]="getCountry(trips)"
+        (filtered)="filtrUpdate($event)"
+    ></app-filtr>
+    </div>
+    <div class="container">
+      <div
+        class="ofer"
+        *ngFor="let trip of trips | searchPipe: data"
+      >
+      <a routerLink="/tripmod/{{trip.id}}" class="link">
+        <img src="{{ trip.ImageLink }}" class="im"/>
+      </a>
+      <h1 class="title">{{ trip.tittle | uppercase }}</h1>
+      <h2 class="country">{{ trip.country | uppercase }}</h2>
+      <p class="date">
+        <b> {{ trip.startdate }} </b> do <b>{{ trip.enddate }}</b>
+      </p>
+      <p class="price">tylko {{ trip.price }} zł</p>
+      <p class="places">tylko {{ trip.places - trip.cart }} miejsc</p>
+      <p class="desc">{{ trip.description }}</p>
+        <div class="dno">
+            <div class="delete" (click)="delTrip(trip)">🗑️</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

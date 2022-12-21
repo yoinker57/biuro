@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import { Observable, throwError, first } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
-import { HttpHeaders} from '@angular/common/http';
+import { Observable, firstValueFrom, first } from 'rxjs';
 import { Trip } from "../ITrip";
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
+import { User } from '../User';
+import { AuthService } from './auth.service';
 
 
 @Injectable({
@@ -14,7 +14,6 @@ export class TripsService {
   trips: Observable<any[]>
   private nextId: number = 0
   opinions: any = []
-  buyTrips: Trip[] = []
 
   constructor(private db: AngularFireDatabase){ 
     this.trips = this.db.list('Trips').valueChanges();
@@ -57,7 +56,6 @@ export class TripsService {
       for(let i of items){
         if(i.payload.val().id==trip.id)
         {
-          console.log(i.payload.key)
           this.db.list('Trips').update(i.payload.key, {
             id: trip.id,
             tittle: trip.tittle,
@@ -85,22 +83,72 @@ export class TripsService {
     return this.opinions
   }
 
-  add2buy(trip: any){
-    this.buyTrips.push(trip)
-    console.log(this.buyTrips);
+  add2cart(trip: Trip, uid: String, n: number){
   }
-  get2buy(){
-    return this.buyTrips
+
+  updateUserCart(uid: String, userCart: any){
+    this.db.object('/users/' + uid + '/cart').set(userCart)
   }
+
+  updateUserTrips(uid: String, userTrips: any){
+    this.db.object('/users/' + uid + '/trips').set(userTrips)
+  }
+
+  updateUserRating(uid: String, userRating: any){
+    this.db.object('/users/' + uid + '/ratedTrips').set(userRating)
+  }
+
 
   getNextID(){
     return this.nextId
   }
 
+  addNewUser(user: User){
+    this.db.object('/users/' + user.uid).set({
+      email: user.email,
+      roles: user.roles,
+      cart: {0:0},
+      trips: {0:0},
+      ratedTrips: {0: false}
+    })
+  }
+  getUserRoles(uid: String){
+    return firstValueFrom(
+      this.db.object('/users/' + uid + '/roles').valueChanges()
+    );
+  }
+
+  getUserCard(uid: String){
+    return firstValueFrom(
+      this.db.object('/users/' + uid + '/cart').valueChanges()
+    );
+  }
+
+  getUserTrips(uid: String){
+    return firstValueFrom(
+      this.db.object('/users/' + uid + '/trips').valueChanges()
+    );
+  }
+
+  getUserRating(uid: String){
+    return firstValueFrom(
+      this.db.object('/users/' + uid + '/ratedTrips').valueChanges()
+    );
+  }
+
+  getUsers() {
+    return this.db.list('users').snapshotChanges();
+  }
+
+  setRole(uid: String, role: string, flag: boolean){
+    let newrole = '{"' + role + '"' + ':' + flag + '}';
+    this.db.object('/users/' + uid + '/roles').update(JSON.parse(newrole));
+  }
 
 
-  // dla każdego użytkownika po zalogowaniu bierzemy jego wycieczki i zapisujemy do tablicy
-  // dodatkowo mamy w trips usera którego dane zmianiają się w zależności zalogowanie/wylogowanie braz zalogowania
-  // 
+
+// w trips zapisujemy tylko ID wycieczki
+
 
 }
+

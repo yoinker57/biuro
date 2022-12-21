@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TripsService } from "../services/trips.service";
 import { Trip } from "../ITrip";
+import { Subscription } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-buytrips',
@@ -8,13 +10,44 @@ import { Trip } from "../ITrip";
   styleUrls: ['./buytrips.component.css']
 })
 export class BuytripsComponent implements OnInit {
-  buyTrips: Trip[] = []
-  constructor(private tripsService: TripsService){ }
+  trips: any
+  array: Trip[] = []
 
-
+  constructor(private tripService: TripsService, private authService: AuthService) {  }
+  tripssub: Subscription | undefined
   ngOnInit(): void {
-      this.buyTrips = this.tripsService.get2buy()
+    this.trips = this.authService.userTrips
+
+    this.tripssub = this.tripService.getTrips().subscribe(change => {
+      this.array = []
+      for (let trip of change){
+        if (this.trips[trip.id] != undefined && this.trips[trip.id] > 0) {
+          this.array.push({
+            id: trip.id,
+            tittle: trip.tittle,
+            country: trip.country,
+            startdate: trip.startdate,
+            enddate: trip.enddate,
+            price: trip.price,
+            description: trip.description,
+            places: trip.places,
+            cart: trip.cart,
+            ImageLink: trip.ImageLink,
+            rating: trip.rating,
+            nor: trip.nor,
+            rat: trip.rat,
+          } as Trip)
+        }
+      }
+    })
   }
+
+  getPlaces(id: number){
+    return this.authService.userTrips[id]
+  }
+
+
+
 
   dateToString(data: any){
     const month = data.getMonth() + 1

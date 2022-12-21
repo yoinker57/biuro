@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from "../services/auth.service";
 
 @Component({
   selector: 'app-navik',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./navik.component.css']
 })
 export class NavikComponent {
-
+  constructor(public authService: AuthService){ }
 }

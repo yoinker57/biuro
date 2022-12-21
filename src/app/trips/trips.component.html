@@ -10,7 +10,7 @@
     <div class="up" [ngClass]="{
       gr: num >= 10,
       rd: num < 10
-    }">Aktualna ilość zarezerwowanych miejsc: {{num}}</div>
+    }">Aktualna ilość zarezerwowanych miejsc: {{numberOfTrips()}}</div>
     <div
       class="ofer"
       *ngFor="let trip of trips | searchPipe: data"
@@ -31,27 +31,27 @@
       <b> {{ trip.startdate }} </b> do <b>{{ trip.enddate }}</b>
     </p>
     <p class="price">tylko {{ trip.price }} zł</p>
-    <p class="places">tylko {{ trip.places - trip.cart }} miejsc</p>
+    <p class="places">tylko {{ getTripPlaces(trip) }} miejsc</p>
     <p class="desc">{{ trip.description }}</p>
-    <div class="buttoms">
+    <div class="buttoms" *ngIf="canBuy()">
       <div class="plusminus">
-        <button class="but holder" *ngIf="trip.cart <= 0" disabled>-</button>
+        <button class="but holder" *ngIf="getCartValue(trip.id) <= 0" disabled>-</button>
         <button
           class="but minus"
-          *ngIf="trip.cart > 0"
-          (click)="removeFromCart(trip)"
+          *ngIf="getCartValue(trip.id) > 0"
+          (click)="delFromCart(trip.id)"
         >
           -
         </button>
         <p
           class="tripcart"
         >
-          {{ trip.cart }}
+          {{ getCartValue(trip.id) }}
         </p>
         <button
           class="but plus"
-          *ngIf="trip.places > trip.cart"
-          (click)="addToCart(trip)"
+          *ngIf="getTripPlaces(trip) > 0"
+          (click)="add2Cart(trip.id)"
         >
           +
         </button>
@@ -67,7 +67,6 @@
         <div class="srednia" *ngIf="trip.rating == 0">
           <p>Brak ocen.</p>
         </div>
-        <div class="delete" (click)="delTrip(trip)">🗑️</div>
       </div>
     </div>
   </div>

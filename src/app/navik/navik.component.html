@@ -1,7 +1,13 @@
 <div class="nav">
+    <div class="item" *ngIf="authService.userData!=null">{{authService.userData.email}} </div>
     <a routerLink="/"><div class="item">Strona Główna</div></a>
     <a routerLink="/trips"><div class="item">Wycieczki</div></a>
-    <a routerLink="/addtrip"><div class="item">Dodaj wycieczkę</div></a>
+    <a routerLink="/admin"><div class="item" *ngIf="authService.userRoles.admin==true">Panel Administratora</div></a>
+    <a routerLink="/moder"><div class="item" *ngIf="authService.userRoles.menager==true">Panel Moderatora</div></a>
     <a routerLink="/cart"><div class="item">Koszyk</div></a>
-    <a routerLink="/yourtrips"><div class="item">Twoje wycieczki</div></a>
+    <a routerLink="/yourtrips" *ngIf="authService.userData!=null"><div class="item">Twoje wycieczki</div></a>
+    <a routerLink="/login" *ngIf="authService.userData==null"><div class="item">Zaloguj się</div></a>
+    <a routerLink="/signup" *ngIf="authService.userData==null"><div class="item">Zarejestruj się</div></a>
+    <a routerLink="" *ngIf="authService.userData!=null" (click)="authService.signOut()"><div class="item">Wyloguj się</div></a>
 </div>
+
