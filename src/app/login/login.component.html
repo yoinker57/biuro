@@ -1,12 +1,19 @@
-<form (ngSubmit)="login(loginForm.value)" [formGroup]="loginForm">
-    <p>Login with Email and Password.</p>
-    <label for="email">Email:</label>
-    <input type="email" name="email" formControlName="email">
-  
-    <label for="password">Password:</label>
-    <input type="password" name="password" formControlName="password">
-  
-    <input type="submit" [disabled]="!loginForm.valid" value="Log In">
-</form>
-<a routerLink="/passwordreset">Reset hasła</a>
+<div class="all">
+    <div id="login-form-wrap">
+        <h2>Zaloguj się</h2>
+        <form (ngSubmit)="login(loginForm.value)" [formGroup]="loginForm" id="login-form">
+            <label for="email">Adres e-mail:</label>
+            <input type="email" name="email" formControlName="email">
+        
+            <label for="password">Hasło:</label>
+            <input type="password" name="password" formControlName="password">
+        
+            <input type="submit" [disabled]="!loginForm.valid" value="Zaloguj">
+        </form>
+        <div id="create-account-wrap">
+            <p>Nie pamiętasz hasła? <a routerLink="/passwordreset">Reset hasła</a><p>
+            <p>Nie posiadasz konta? <a routerLink="/signup">Utwórz konto</a><p>
+        </div>
+    </div>
+</div>
 

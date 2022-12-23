@@ -12,23 +12,27 @@ import { AuthService } from './auth.service';
 })
 export class TripsService {
   trips: Observable<any[]>
+  alltrips: Observable<any[]>
   private nextId: number = 0
   opinions: any = []
 
   constructor(private db: AngularFireDatabase){ 
     this.trips = this.db.list('Trips').valueChanges();
+    this.alltrips = this.db.list('allTrips').valueChanges();
     this.db.list('Trips', ref=> ref.orderByChild('id').limitToLast(1)).valueChanges().subscribe((res: any[]) => {this.nextId = res[0]?.id+1})
   }
 
   getTrips(): Observable<any[]>{
     return this.trips
   }
+  getTrips2(): Observable<any[]>{
+    return this.alltrips
+  }
   removeTrip(id: String){
     this.db.list('Trips').snapshotChanges().pipe(first()).subscribe((items:any) =>{
       for(let i of items){
         if(i.payload.val().id==id)
         {
-          console.log(i.payload.key)
           this.db.list('Trips').remove(i.payload.key)
         }
       }
@@ -50,9 +54,46 @@ export class TripsService {
       nor: trip.nor,
       rat: trip.rat,
     })
+    this.db.list('allTrips').push({
+      id: trip.id,
+      tittle: trip.tittle,
+      country: trip.country,
+      startdate: trip.startdate,
+      enddate: trip.enddate,
+      price: trip.price,
+      description: trip.description,
+      places: trip.places,
+      cart: trip.cart,
+      ImageLink: trip.ImageLink,
+      rating: trip.rating,
+      nor: trip.nor,
+      rat: trip.rat,
+    })
   }
   updateTrip(trip:Trip){
     this.db.list('Trips').snapshotChanges().pipe(first()).subscribe((items:any) =>{
+      for(let i of items){
+        if(i.payload.val().id==trip.id)
+        {
+          this.db.list('Trips').update(i.payload.key, {
+            id: trip.id,
+            tittle: trip.tittle,
+            country: trip.country,
+            startdate: trip.startdate,
+            enddate: trip.enddate,
+            price: trip.price,
+            description: trip.description,
+            places: trip.places,
+            cart: trip.cart,
+            ImageLink: trip.ImageLink,
+            rating: trip.rating,
+            nor: trip.nor,
+            rat: trip.rat
+          })
+        }
+      }
+    } )
+    this.db.list('allTrips').snapshotChanges().pipe(first()).subscribe((items:any) =>{
       for(let i of items){
         if(i.payload.val().id==trip.id)
         {

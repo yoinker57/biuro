@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable, throwError, first } from 'rxjs';
 import { Router } from "@angular/router";
@@ -13,9 +13,10 @@ import { Trip, CartTrip } from '../ITrip';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService{
   userData: any = null;
-  userRoles: Roles = {
+  userRoles: any =
+  {
     admin: false,
     menager: false,
     client: false,
@@ -101,6 +102,18 @@ export class AuthService {
 
   changePersistence(persistence: string){
     this.fireAuth.setPersistence(persistence)
+  }
+
+  getRole(){
+    return this.userRoles
+  }
+
+  getCurrentUser() {
+    return new Promise((resolve, reject) => {
+      const unsubscribe = this.fireAuth.onAuthStateChanged((user) => {
+        resolve(user);
+      }, reject);
+    });
   }
 
 

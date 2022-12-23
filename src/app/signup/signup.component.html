@@ -1,10 +1,17 @@
-<form (ngSubmit)="signup(signUpForm.value)" [formGroup]="signUpForm">
-  <p>Signup with Email and Password.</p>  
-  <label for="email">Email:</label>
-  <input type="email" name="email" formControlName="email">
-
-  <label for="password">Password:</label>
-  <input type="password" name="password" formControlName="password">
-
-  <input type="submit" [disabled]="!signUpForm.valid" value="Sign Up">
-</form> 
+<div class="all">
+    <div id="login-form-wrap">
+      <h2>Zarejestruj się</h2>
+      <form (ngSubmit)="signup(signUpForm.value)" [formGroup]="signUpForm" id="login-form">
+        <label for="email">Adres e-mail:</label>
+        <input type="email" name="email" formControlName="email">
+      
+        <label for="password">Hasło:</label>
+        <input type="password" name="password" formControlName="password">
+      
+        <input type="submit" [disabled]="!signUpForm.valid" value="Zarejestruj">
+      </form> 
+      <div id="create-account-wrap">
+          <p>Posiadasz już konto? <a routerLink="/login">Zaloguj się</a><p>
+      </div>
+    </div>
+</div>

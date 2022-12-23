@@ -18,7 +18,7 @@ export class BuytripsComponent implements OnInit {
   ngOnInit(): void {
     this.trips = this.authService.userTrips
 
-    this.tripssub = this.tripService.getTrips().subscribe(change => {
+    this.tripssub = this.tripService.getTrips2().subscribe(change => {
       this.array = []
       for (let trip of change){
         if (this.trips[trip.id] != undefined && this.trips[trip.id] > 0) {
@@ -45,8 +45,6 @@ export class BuytripsComponent implements OnInit {
   getPlaces(id: number){
     return this.authService.userTrips[id]
   }
-
-
 
 
   dateToString(data: any){
