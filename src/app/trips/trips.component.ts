@@ -131,9 +131,13 @@ export class TripsComponent implements OnInit {
   }
 
   numberOfTrips(){
+    console.log(this.authService.userCart);
+    
     let sum = 0;
     for (const [key, value] of this.authService.userCart.entries()) {
-      sum += value
+      if (value != undefined) {
+        sum += value
+      }
     }
     return sum
   }

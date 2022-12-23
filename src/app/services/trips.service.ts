@@ -19,7 +19,7 @@ export class TripsService {
   constructor(private db: AngularFireDatabase){ 
     this.trips = this.db.list('Trips').valueChanges();
     this.alltrips = this.db.list('allTrips').valueChanges();
-    this.db.list('Trips', ref=> ref.orderByChild('id').limitToLast(1)).valueChanges().subscribe((res: any[]) => {this.nextId = res[0]?.id+1})
+    this.db.list('allTrips', ref=> ref.orderByChild('id').limitToLast(1)).valueChanges().subscribe((res: any[]) => {this.nextId = res[0]?.id+1})
   }
 
   getTrips(): Observable<any[]>{
