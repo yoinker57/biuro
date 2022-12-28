@@ -22,7 +22,7 @@ export class AuthService{
     client: false,
     banned: false,
   };
-  userCart: any = [];
+  userCart: any = {'0': 0};
   userTrips: any = [];
   userRating: any[] = []
   persistance: string = 'local';
