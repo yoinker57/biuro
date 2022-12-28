@@ -22,8 +22,8 @@ export class AuthService{
     client: false,
     banned: false,
   };
-  userCart: any[] = [];
-  userTrips: any[] = [];
+  userCart: any = [];
+  userTrips: any = [];
   userRating: any[] = []
   persistance: string = 'local';
 
@@ -41,7 +41,7 @@ export class AuthService{
         this.userRating = rating as any;
       } else {
         this.userData = null;
-        this.userCart = [];
+        this.userCart = null;
         this.userTrips = [];
         this.userRoles = {
           admin: false,

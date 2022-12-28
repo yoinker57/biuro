@@ -1,5 +1,4 @@
 import { Component, OnInit, Pipe, PipeTransform, ViewChildren } from '@angular/core';
-import { CartService } from "../services/cart.service";
 import { TripsService } from '../services/trips.service';
 import { Subscription } from 'rxjs';
 import { Trip } from "../ITrip";
@@ -16,7 +15,7 @@ export class TripsComponent implements OnInit {
   data = []
   num: number = 0
 
-  constructor(private cartService: CartService,
+  constructor(
       private authService: AuthService,
       private tripService: TripsService) { }
 
@@ -128,8 +127,6 @@ export class TripsComponent implements OnInit {
   }
 
   numberOfTrips(){
-    console.log(this.authService.userCart);
-    
     let sum = 0;
     for (const [key, value] of this.authService.userCart.entries()) {
       if (value != undefined) {

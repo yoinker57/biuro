@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TripsService } from "../services/trips.service";
-import { CartService } from "../services/cart.service";
 import { AuthService } from "../services/auth.service";
 import { ActivatedRoute } from "@angular/router";
 import { FormGroup, FormControl, Validators} from "@angular/forms";
@@ -14,7 +13,6 @@ import { first ,Subscription } from "rxjs";
 })
 export class TripComponent implements OnInit {
   constructor(private route: ActivatedRoute,
-    private cartService: CartService,
     private authService: AuthService,
     private tripsservice: TripsService)
   { }

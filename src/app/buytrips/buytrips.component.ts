@@ -14,11 +14,12 @@ export class BuytripsComponent implements OnInit {
   array: Trip[] = []
 
   constructor(private tripService: TripsService, private authService: AuthService) {  }
+  
   tripssub: Subscription | undefined
-  ngOnInit(): void {
-    this.trips = this.authService.userTrips
 
-    this.tripssub = this.tripService.getTrips2().subscribe(change => {
+  async ngOnInit(): Promise<void> {
+    this.trips = this.authService.userTrips
+    this.tripssub = await this.tripService.getTrips2().subscribe(change => {
       this.array = []
       for (let trip of change){
         if (this.trips[trip.id] != undefined && this.trips[trip.id] > 0) {

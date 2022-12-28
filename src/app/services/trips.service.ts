@@ -124,9 +124,6 @@ export class TripsService {
     return this.opinions
   }
 
-  add2cart(trip: Trip, uid: String, n: number){
-  }
-
   updateUserCart(uid: String, userCart: any){
     this.db.object('/users/' + uid + '/cart').set(userCart)
   }

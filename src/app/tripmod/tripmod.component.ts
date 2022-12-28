@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TripsService } from "../services/trips.service";
-import { CartService } from "../services/cart.service";
 import { ActivatedRoute } from "@angular/router";
 import { FormGroup, FormControl, Validators} from "@angular/forms";
 import { Trip } from "../ITrip";

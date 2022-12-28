@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from "../services/cart.service";
 import { TripsService } from '../services/trips.service';
 import { Subscription } from 'rxjs';
 import { Trip } from "../ITrip";

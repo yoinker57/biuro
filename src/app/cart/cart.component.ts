@@ -1,6 +1,5 @@
 declare const require: any;
 import { Component, OnInit} from '@angular/core';
-import { CartService } from "../services/cart.service";
 import { Trip } from "../ITrip";
 import { Subscription } from 'rxjs';
 import { TripsService } from '../services/trips.service';
