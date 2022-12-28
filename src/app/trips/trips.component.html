@@ -8,8 +8,8 @@
   </div>
   <div class="container">
     <div class="up" [ngClass]="{
-      gr: num >= 10,
-      rd: num < 10
+      gr: numberOfTrips() >= 10,
+      rd: numberOfTrips() < 10
     }">Aktualna ilość zarezerwowanych miejsc: {{numberOfTrips()}}</div>
     <div
       class="ofer"
@@ -17,8 +17,8 @@
       [ngClass]="{
         expensive: trip.price == maxPrice(),
         cheap: trip.price == minPrice(),
-        last: trip.places - trip.cart <= 3,
-        out: trip.places - trip.cart <= 0
+        last: trip.places - numberofTrip(trip.id) <= 3,
+        out: trip.places - numberofTrip(trip.id) <= 0
       }"
     >
 

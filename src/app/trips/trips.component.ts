@@ -5,9 +5,6 @@ import { Subscription } from 'rxjs';
 import { Trip } from "../ITrip";
 import { AuthService } from '../services/auth.service';
 
-// zrobic funkcje iterującą przez wycieczki i sumująca cart
-
-
 @Component({
   selector: 'app-trips',
   templateUrl: './trips.component.html',
@@ -142,6 +139,9 @@ export class TripsComponent implements OnInit {
     return sum
   }
 
+  numberofTrip(tripid: any){
+    return this.authService.userCart[tripid]
+  }
 
 }
 
